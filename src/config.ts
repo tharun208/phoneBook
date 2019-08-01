@@ -10,6 +10,6 @@ function must(envName: string): string {
 export default {
   isDev: ENV.NODE_ENV === 'development',
   port: parseInt(ENV.PORT || '3000', 10),
-  serviceMongoDB: ENV.SERVICE_MONGODB || 'mongodb://mongodb:27017',
+  serviceMongoDB: ENV.SERVICE_MONGODB || 'mongodb://localhost:27017/contact-book?w=1',
   privateKey: ENV.PRIVATE_KEY || 'testKey@123',
 };

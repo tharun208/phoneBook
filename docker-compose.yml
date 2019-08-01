@@ -1,0 +1,14 @@
+version: '2'
+services:
+  mongo:
+    image: mongo:3.4
+    volumes:
+     - ./mongo-data:/data/db
+    ports:
+     - 27017:27017
+  redis:
+    image: redis:3-alpine
+    volumes:
+     - ./dev/redis:/data
+    ports:
+     - 6379:6379
