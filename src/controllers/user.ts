@@ -14,7 +14,7 @@ export default function getController(): Router {
 
 async function registerUser(req: Request, res: Response) {
   const { body } = req;
-  if (body) {
+  if (body.email && body.password) {
     const user: IUser = {
       id: genId(6),
       ...body,

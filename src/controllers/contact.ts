@@ -38,7 +38,7 @@ async function addContact(req: Request, res: Response) {
   const { userId } = <any>req;
   const { id } = req.params;
   const { body } = req;
-  if (body) {
+  if (body.email && body.phone) {
     const contact: IContact = {
       id: id ? id : genId(6),
       ...body,
