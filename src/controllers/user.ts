@@ -14,16 +14,22 @@ export default function getController(): Router {
 
 async function registerUser(req: Request, res: Response) {
   const { body } = req;
-  const user: IUser = {
-    id: genId(6),
-    ...body,
-  };
-  const userExists = await db.user.findByEmailId(user.email);
-  if (!userExists) {
-    await db.user.save(user);
-    res.status(200).json(serialize({ message: 'User Registration Successful' }));
+  if (body) {
+    const user: IUser = {
+      id: genId(6),
+      ...body,
+    };
+    const userExists = await db.user.findByEmailId(user.email);
+    if (!userExists) {
+      await db.user.save(user);
+      res.status(200).json(serialize({ message: 'User Registration Successful' }));
+    } else {
+      res.status(200).json({ message: 'User Already Exists' });
+    }
   } else {
-    res.status(200).json({ message: 'User Already Exists' });
+    res
+      .status(200)
+      .json(serialize({ success: false, message: 'Please Provide Valid Details' }));
   }
 }
 async function loginUser(req: Request, res: Response) {

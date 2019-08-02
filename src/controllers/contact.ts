@@ -38,12 +38,20 @@ async function addContact(req: Request, res: Response) {
   const { userId } = <any>req;
   const { id } = req.params;
   const { body } = req;
-  const contact: IContact = {
-    id: id ? id : genId(6),
-    ...body,
-  };
-  await db.contact.save(userId, contact);
-  res.status(200).json(serialize({ success: true, message: 'Contact Added Successful' }));
+  if (body) {
+    const contact: IContact = {
+      id: id ? id : genId(6),
+      ...body,
+    };
+    await db.contact.save(userId, contact);
+    res
+      .status(200)
+      .json(serialize({ success: true, message: 'Contact Added Successful' }));
+  } else {
+    res
+      .status(200)
+      .json(serialize({ success: false, message: 'Please Provide Contact Details' }));
+  }
 }
 
 async function deleteContact(req: Request, res: Response) {
