@@ -4,7 +4,9 @@ import Db from './models/db';
 import checkAuth from './auth/auth';
 import getUserController from './controllers/user';
 import getContactController from './controllers/contact';
+import Logger from './utils/logger';
 
+const logger = new Logger('app');
 async function main() {
   await Db.init();
   const server = express()
@@ -14,9 +16,9 @@ async function main() {
     .use('/user-acl/api/v1', getUserController())
     .use('/user-acl/api/v1/contacts/', checkAuth, getContactController())
     .listen(config.port, () => {
-      console.log(`server running on http://localhost:${config.port}`);
+      logger.log(`server running on http://localhost:${config.port}`);
       const stopServer = () => {
-        console.log('shutting.down');
+        logger.log('shutting.down');
         server.close();
       };
       process.once('SIGINT', stopServer);
@@ -24,4 +26,4 @@ async function main() {
     });
 }
 
-main().catch((err) => console.error('app.init.failed', err));
+main().catch((err) => logger.error('app.init.failed', err));
