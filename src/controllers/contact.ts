@@ -9,7 +9,7 @@ export default function getController(): Router {
     .get('/list', getList)
     .get('/list/:id?', getContact)
     .post('/add/:id?', addContact)
-    .delete('add/:id?', deleteContact);
+    .delete('/add/:id?', deleteContact);
 }
 
 async function getList(req: Request, res: Response) {
